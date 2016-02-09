@@ -1,16 +1,17 @@
 package hashcode
 
+import java.io.File
+import java.util.Scanner
+
 object Parser {
-  def read(): Problem = {
-    val input = io.Source.fromFile("input/data.in").getLines.toList
-    val first = input.head
-    val Array(nbRows, nbSlots, nbUnavailable, nbPools, nbServers) = first.split(" ").map(_.toInt)
+  def read(f: String): Problem = {
+    val scan = new Scanner(new File(f))
+    import scan._
+    val nrow = nextInt()
+    val ncol = nextInt()
+    nextLine()
+    val picture = Vector.fill(nrow) { nextLine() }
 
-    val servers = for {
-      (line, i) <- input.tail.drop(nbUnavailable).take(nbServers).zipWithIndex
-      Array(s, c) = line.split(" ")
-    } yield Server(s.toInt, c.toInt, i)
-
-    Problem(servers)
+    Problem(picture, nrow, ncol)
   }
 }

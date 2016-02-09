@@ -1,8 +1,13 @@
 package hashcode
 
-case class Server(size: Int, capacity: Int, id: Int) {
-  def ratio: Float = capacity / size.toFloat
-}
+case class Problem(picture: Vector[String], nrow: Int, ncol: Int) {
+  def update(row: Int, col: Int, c: Char) =
+    copy(picture = picture.updated(row, picture(row).updated(col, c)))
 
-case class Problem(servers: List[Server])
+  def cellsCount = (for {
+    row <- picture
+    c <- row
+    if c == '#'
+  } yield 1).sum
+}
 

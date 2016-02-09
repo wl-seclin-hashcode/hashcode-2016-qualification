@@ -1,13 +1,15 @@
 package hashcode
 
 import java.io.PrintStream
+import grizzled.slf4j.Logging
 
-object Formatter {
-  def write(solution: Solution, score: Int): Unit = {
-    val name = s"out.${score}.txt"
-    val f = new PrintStream(name)
-    f.println(solution.toString)
+object Formatter extends Logging {
+  def write(solution: Solution, score: Int, name: String): Unit = {
+    val file = s"out.$name.$score.txt"
+    val f = new PrintStream(file)
+    f.println(solution.commands.size)
+    f.println(solution.commands.mkString("\n"))
     f.close
-    println(s"wrote to $name")
+    info(s"wrote to $file")
   }
 }
